@@ -15,7 +15,8 @@ func _physics_process(delta: float) -> void:
 	# Jump when input is pressed and player is grounded
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
-		
+
+	# Cut jump short if player releases jump while ascending
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= 0.5
 
