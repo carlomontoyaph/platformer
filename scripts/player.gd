@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
 # Movement tuning
-const JUMP_VELOCITY := -500.0
-const SPEED := 300.0
+@export var acceleration := 1500.0
+@export var air_acceleration := 800.0
+@export var friction := 1800.0
+@export var jump_velocity := -500.0
+@export var speed := 300.0
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity when airborne
@@ -11,7 +14,10 @@ func _physics_process(delta: float) -> void:
 
 	# Jump when input is pressed and player is grounded
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
+		
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y *= 0.5
 
 	# Handle horizontal movement
 	var direction = Input.get_axis(
@@ -20,13 +26,16 @@ func _physics_process(delta: float) -> void:
 	)
 
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = move_toward(
+			velocity.x,
+			direction * speed,
+			(acceleration if is_on_floor() else air_acceleration) * delta
+		)
 	else:
-		# Smoothly decelerate to 0 (move_toward gradually changes from current to target by max delta)
 		velocity.x = move_toward(
 			velocity.x,
 			0,
-			SPEED
+			friction * delta
 		)
 
 	# Apply velocity and handle collisions

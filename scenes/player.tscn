@@ -7,6 +7,8 @@ size = Vector2(32, 48)
 
 [node name="Player" type="CharacterBody2D" unique_id=1811485037]
 script = ExtResource("1_3vyb7")
+acceleration = 3000.0
+friction = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1965819126]
 shape = SubResource("RectangleShape2D_u8vuu")
