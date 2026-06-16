@@ -1,0 +1,247 @@
+[gd_scene format=3 uid="uid://bhq3jp3larrln"]
+
+[ext_resource type="PackedScene" uid="uid://cdg82mh4ljjty" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://b8xnt3cc3h7qq" path="res://scripts/debug_hud.gd" id="2_u46k3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(200, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(150, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3"]
+size = Vector2(150, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4"]
+size = Vector2(200, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5"]
+size = Vector2(200, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6"]
+size = Vector2(200, 80)
+
+[node name="TestCoyoteJump" type="Node2D" unique_id=655610944]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=7632013]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1405495816]
+layer = 100
+
+[node name="DebugHUD" type="Label" parent="CanvasLayer" unique_id=1456786664]
+offset_right = 600.0
+offset_bottom = 50.0
+text = "Loading..."
+script = ExtResource("2_u46k3")
+
+[node name="Player" parent="." unique_id=575868909 instance=ExtResource("1_o5qli")]
+position = Vector2(100, 32)
+
+[node name="Platform1" type="StaticBody2D" parent="." unique_id=691500088]
+position = Vector2(0, 132)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1" unique_id=407075458]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Platform1" unique_id=334466634]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+
+[node name="Label" type="Label" parent="Platform1" unique_id=1965342422]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+text = "S1-5,9-10"
+horizontal_alignment = 1
+
+[node name="Platform2Left" type="StaticBody2D" parent="." unique_id=328572359]
+position = Vector2(-300, 282)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2Left" unique_id=274098135]
+shape = SubResource("RectangleShape2D_2")
+
+[node name="ColorRect" type="ColorRect" parent="Platform2Left" unique_id=1717989693]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -40.0
+offset_right = 75.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform2Left" unique_id=1744693680]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+text = "S2,7,8 L"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform2Right" type="StaticBody2D" parent="." unique_id=898777657]
+position = Vector2(300, 282)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2Right" unique_id=1257090576]
+shape = SubResource("RectangleShape2D_3")
+
+[node name="ColorRect" type="ColorRect" parent="Platform2Right" unique_id=1989773881]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -40.0
+offset_right = 75.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform2Right" unique_id=1889294829]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+text = "S2,7,8 R"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform3Upper" type="StaticBody2D" parent="." unique_id=1555355999]
+position = Vector2(-450, -68)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3Upper" unique_id=19386585]
+shape = SubResource("RectangleShape2D_4")
+
+[node name="ColorRect" type="ColorRect" parent="Platform3Upper" unique_id=2060525160]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform3Upper" unique_id=828454302]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "S11-A"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform3Lower" type="StaticBody2D" parent="." unique_id=467955419]
+position = Vector2(-200, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3Lower" unique_id=2109273127]
+shape = SubResource("RectangleShape2D_5")
+
+[node name="ColorRect" type="ColorRect" parent="Platform3Lower" unique_id=1989359680]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform3Lower" unique_id=533274777]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "S11-B"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform4" type="StaticBody2D" parent="." unique_id=1426651171]
+position = Vector2(550, 232)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform4" unique_id=439710656]
+shape = SubResource("RectangleShape2D_6")
+
+[node name="ColorRect" type="ColorRect" parent="Platform4" unique_id=1834670197]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform4" unique_id=573420639]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "S12"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
