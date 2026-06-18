@@ -245,3 +245,38 @@ offset_bottom = 10.0
 text = "S12"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Platform5" type="StaticBody2D" parent="." unique_id=1654676026]
+position = Vector2(550, 232)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform5" unique_id=992466013]
+shape = SubResource("RectangleShape2D_6")
+
+[node name="ColorRect" type="ColorRect" parent="Platform5" unique_id=426964580]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform5" unique_id=1031392475]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "S12"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

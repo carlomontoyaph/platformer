@@ -11,6 +11,9 @@ extends CharacterBody2D
 @export var speed := 300.0  # Maximum horizontal movement speed
 @export var fall_death_y := 1000.0  # Y position where player resets
 @export var fall_reset_delay := 2.0  # Delay before resetting after falling
+@export var wall_jump_push := 350.0  # Horizontal force applied away from wall on wall-jump
+@export var wall_jump_lock_time := 0.12  # Seconds to lock horizontal input after wall-jump
+@export var wall_slide_speed := 120  # Max downward speed while sliding on a wall
 
 # Player state for animation hooks
 enum PlayerState { IDLE, RUN, JUMP, FALL }
@@ -24,23 +27,29 @@ var current_state := PlayerState.IDLE
 var can_double_jump := false
 var coyote_timer := 0.0  # Countdown for coyote window
 var fall_timer := 0.0  # Countup for fall reset delay
+var is_wall_sliding := false  # True when on wall, airborne, and falling
 var jump_buffer_timer := 0.0  # Countdown for jump buffer window
 var spawn_position: Vector2  # Respawn position
 var was_on_floor := false  # Tracks floor state for landing detection
+var wall_jump_lock_timer := 0.0  # Countdown for wall-jump input lock
 
 signal landed  # Emitted when player lands on ground
 
 
+# Finds spawn point or falls back to current position, registers in "player" group.
 func _ready() -> void:
 	var spawn_point = get_node_or_null("SpawnPoint")
 	spawn_position = spawn_point.global_position if spawn_point else position
 	add_to_group("player")
 
 
+# Main physics tick: runs input buffer, timers, ground/wall state, movement, jump, and fall-reset in order.
 func _physics_process(delta: float) -> void:
 	_buffer_jump_input()
 	_update_timers(delta)
 	_update_ground_state(delta)
+	_update_wall_state()	
+	_handle_wall_slide()
 	_handle_jump()
 	_handle_horizontal_movement(delta)
 	move_and_slide()
@@ -55,9 +64,13 @@ func _buffer_jump_input() -> void:
 		jump_buffer_timer = jump_buffer_time
 
 
+# Decrements coyote, jump-buffer, and wall-jump-lock timers each frame.
 func _update_timers(delta: float) -> void:
 	coyote_timer -= delta
 	jump_buffer_timer -= delta
+	
+	if wall_jump_lock_timer > 0:
+		wall_jump_lock_timer -= delta
 
 
 # Applies gravity when airborne, resets coyote timer on ground,
@@ -75,10 +88,14 @@ func _update_ground_state(delta: float) -> void:
 
 
 # Jump priority:
-# 1. Coyote + buffer jump — ground jump with a brief forgiveness window
-# 2. Double jump — mid-air second jump
-# 3. Variable height — cutting velocity short on jump release
+# 1. Wall jump — bounces off wall with horizontal push
+# 2. Coyote + buffer jump — ground jump with a brief forgiveness window
+# 3. Double jump — mid-air second jump
+# 4. Variable height — cutting velocity short on jump release
 func _handle_jump() -> void:
+	if _perform_wall_jump():
+		return
+	
 	if jump_buffer_timer > 0 and coyote_timer > 0:
 		velocity.y = jump_velocity
 		jump_buffer_timer = 0
@@ -93,7 +110,11 @@ func _handle_jump() -> void:
 		velocity.y *= jump_cut_multiplier
 
 
+# Applies left/right input to velocity, with separate ground/air acceleration and friction when idle.
 func _handle_horizontal_movement(delta: float) -> void:
+	if wall_jump_lock_timer > 0:
+		return
+	
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = move_toward(
@@ -117,6 +138,7 @@ func _update_state() -> void:
 	current_state = new_state
 
 
+# After falling below fall_death_y, waits fall_reset_delay seconds then respawns.
 func _check_fall_reset(delta: float) -> void:
 	if position.y > fall_death_y:
 		fall_timer += delta
@@ -126,6 +148,7 @@ func _check_fall_reset(delta: float) -> void:
 		fall_timer = 0.0
 
 
+# Teleports player to spawn, zeroes velocity, and clears all timers and jump state.
 func _reset_to_spawn() -> void:
 	position = spawn_position
 	velocity = Vector2.ZERO
@@ -134,3 +157,32 @@ func _reset_to_spawn() -> void:
 	jump_buffer_timer = 0.0
 	can_double_jump = false
 	was_on_floor = false
+
+# Sets is_wall_sliding when on a wall, airborne, and moving downward.
+func _update_wall_state() -> void:
+	is_wall_sliding = (
+		is_on_wall() and not is_on_floor() and velocity.y > 0
+		)
+
+# Caps downward velocity to wall_slide_speed while sliding.
+func _handle_wall_slide() -> void:
+	if is_wall_sliding:
+		velocity.y = min(velocity.y, wall_slide_speed)
+		
+# Returns true and applies wall-jump velocity if sliding on a wall and jump is pressed.
+func _perform_wall_jump() -> bool:
+	if not is_wall_sliding:
+		return false
+	if not Input.is_action_just_pressed("jump"):
+		return false
+	
+	var wall_direction := get_wall_normal().x
+	
+	velocity.x = wall_direction * wall_jump_push
+	velocity.y = jump_velocity
+	
+	can_double_jump = true
+	
+	wall_jump_lock_timer = wall_jump_lock_time
+	
+	return true

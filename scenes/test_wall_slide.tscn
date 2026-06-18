@@ -1,0 +1,195 @@
+[gd_scene format=3 uid="uid://dy56we2kxsyo1"]
+
+[ext_resource type="PackedScene" uid="uid://cdg82mh4ljjty" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://b8xnt3cc3h7qq" path="res://scripts/debug_hud.gd" id="2_u46k3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7"]
+size = Vector2(32, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8"]
+size = Vector2(32, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_9"]
+size = Vector2(32, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10"]
+size = Vector2(140, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11"]
+size = Vector2(1000, 60)
+
+[node name="TestWallSlide" type="Node2D" unique_id=655610944]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=7632013]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1405495816]
+layer = 100
+
+[node name="DebugHUD" type="Label" parent="CanvasLayer" unique_id=1456786664]
+offset_right = 600.0
+offset_bottom = 50.0
+text = "Loading..."
+script = ExtResource("2_u46k3")
+
+[node name="Player" parent="." unique_id=575868909 instance=ExtResource("1_o5qli")]
+position = Vector2(26, 234)
+
+[node name="Wall_A" type="StaticBody2D" parent="." unique_id=691500080]
+position = Vector2(176, 164)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_A" unique_id=407075450]
+shape = SubResource("RectangleShape2D_7")
+
+[node name="ColorRect" type="ColorRect" parent="Wall_A" unique_id=334466630]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -100.0
+offset_right = 16.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6, 0.4, 0.2, 1)
+
+[node name="Label" type="Label" parent="Wall_A" unique_id=1965342420]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+text = "WS1 — Basic slide"
+horizontal_alignment = 1
+
+[node name="Wall_B" type="StaticBody2D" parent="." unique_id=328572350]
+position = Vector2(-274, 214)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_B" unique_id=274098130]
+shape = SubResource("RectangleShape2D_8")
+
+[node name="ColorRect" type="ColorRect" parent="Wall_B" unique_id=1717989690]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -50.0
+offset_right = 16.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6, 0.4, 0.2, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Wall_B" unique_id=1744693680]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "WS2 — Short wall"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Wall_C" type="StaticBody2D" parent="." unique_id=898777650]
+position = Vector2(376, 164)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_C" unique_id=1257090570]
+shape = SubResource("RectangleShape2D_9")
+
+[node name="ColorRect" type="ColorRect" parent="Wall_C" unique_id=1989773880]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -120.0
+offset_right = 16.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6, 0.4, 0.2, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Wall_C" unique_id=1889294820]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "WS3 — Corridor"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform_Mid" type="StaticBody2D" parent="." unique_id=1555355990]
+position = Vector2(276, 44)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform_Mid" unique_id=19386580]
+shape = SubResource("RectangleShape2D_10")
+
+[node name="ColorRect" type="ColorRect" parent="Platform_Mid" unique_id=2060525160]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -15.0
+offset_right = 70.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Platform_Mid" unique_id=828454300]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -10.0
+offset_right = 70.0
+offset_bottom = 10.0
+text = "WS4 — Slide to ledge"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform_Bottom" type="StaticBody2D" parent="." unique_id=467955410]
+position = Vector2(76, 294)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform_Bottom" unique_id=2109273120]
+shape = SubResource("RectangleShape2D_11")
+
+[node name="ColorRect" type="ColorRect" parent="Platform_Bottom" unique_id=1989359680]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -30.0
+offset_right = 500.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25490198, 0.6, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
