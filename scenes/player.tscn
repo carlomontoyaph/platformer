@@ -6,15 +6,27 @@
 size = Vector2(32, 48)
 
 [node name="Player" type="CharacterBody2D" unique_id=1811485037]
-groups = ["player"]
 script = ExtResource("1_3vyb7")
 acceleration = 3000.0
+air_acceleration = null
+coyote_time = null
+dash_speed = null
+dash_duratio = null
 friction = 500.0
+jump_buffer_time = null
+jump_velocity = null
+jump_cut_multiplier = null
+speed = null
+fall_death_y = null
+fall_reset_delay = null
+wall_jump_push = null
+wall_jump_lock_time = null
+wall_slide_speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1965819126]
 shape = SubResource("RectangleShape2D_u8vuu")
 
-[node name="SpawnPoint" type="Marker2D" parent="."]
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=996791079]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1634803709]
 anchors_preset = 8
